@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Alpaca Finance — Leverage Yield Farming, Lending, ALPACA Token &amp; How It Works (2026)</title>
+  <meta name="description" content="Complete Alpaca Finance guide (2026): how leveraged yield farming works on BNB Chain, lending vaults and ibTokens, ALPACA token staking and grazing range, liquidation mechanics, debt ratios explained, AUSD stablecoin, security, and a deep FAQ for DeFi yield farmers.">
+  <meta name="author" content="Crypto Finance Experts">
+  <link rel="canonical" href="https://alpaca-finance-guide.example.com/">
+  <link rel="icon" type="image/png" href="alpac.png">
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://alpaca-finance-guide.example.com/">
+  <meta property="og:title" content="Alpaca Finance — Leverage Yield Farming, ALPACA Token &amp; Lending Guide (2026)">
+  <meta property="og:description" content="Practical Alpaca Finance guide: leveraged yield farming mechanics, lending vaults, ibTokens, ALPACA staking, debt ratio management, liquidation, and BNB Chain DeFi.">
+  <meta property="og:image" content="cover.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Alpaca Finance — Leverage Yield Farming Guide (2026)">
+  <meta name="twitter:description" content="How Alpaca Finance leverage yield farming works, ALPACA staking, lending vaults, and debt ratio management for 2026.">
+
+  <style>
+    :root {
+      --g:    #00B050;
+      --g2:   #009442;
+      --g3:   #007834;
+      --ga:   #33CC74;
+      --gb:   #99E8BF;
+      --gc:   #E0FFF0;
+
+      /* gold accent — alpaca fur */
+      --au:   #F5C842;
+      --au2:  #D4A82E;
+      --aua:  #FFDC70;
+      --aub:  #FFF0B3;
+
+      --ink:   #F2FFF7;
+      --sub:   #99E8BF;
+      --muted: #94A3B8;
+      --dim:   #64748B;
+
+      --bg:    #03080A;
+      --card:  rgba(255,255,255,.028);
+      --line:  rgba(255,255,255,.07);
+      --lg:    rgba(0,176,80,.14);
+      --lau:   rgba(245,200,66,.10);
+
+      --ok:   #00D97E;
+      --warn: #FBBF24;
+      --err:  #F87171;
+
+      --r:  12px;
+      --rl: 18px;
+      --gap: 1.2rem;
+      --sh: 0 8px 32px rgba(0,0,0,.66);
+      --shg: 0 4px 26px rgba(0,176,80,.14);
+      --shau: 0 4px 20px rgba(245,200,66,.12);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
+    html { scroll-behavior: smooth }
+    body {
+      font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      background-image:
+        radial-gradient(ellipse 960px 540px at 0%   0%,  rgba(0,148,66,.11),  transparent 55%),
+        radial-gradient(ellipse 700px 420px at 100% 8%,  rgba(245,200,66,.05), transparent 50%),
+        radial-gradient(ellipse 600px 380px at 50%  97%, rgba(0,120,52,.07),   transparent 55%);
+      color: var(--muted);
+      line-height: 1.72;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    a { color: var(--ga); text-decoration: none }
+    a:hover { text-decoration: underline }
+    img { max-width: 100%; height: auto; display: block }
+    strong { color: #CCFAE0; font-weight: 600 }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 1.4rem }
+
+    h1,h2,h3,h4 { color: var(--ink); line-height: 1.25 }
+    h1 { font-size: clamp(2rem,5vw,3.2rem); font-weight: 800; letter-spacing: -.5px }
+    h2 { font-size: clamp(1.25rem,2.5vw,1.75rem); font-weight: 700; margin-top: 1.8rem; padding-top: .7rem; border-top: 1px solid var(--line) }
+    h3 { font-size: 1.08rem; font-weight: 700; color: var(--sub) }
+    p,li,td,th { font-size: 1rem; line-height: 1.75 }
+    .lead { font-size: 1.08rem; color: #80DDA8 }
+
+    /* ── HERO ── */
+    header.hero {
+      padding: clamp(2.5rem,6vw,5.5rem) 0 clamp(2rem,4vw,3.5rem);
+      border-bottom: 1px solid var(--line);
+    }
+    .hero-card {
+      background: rgba(0,148,66,.05);
+      border: 1px solid var(--lg);
+      border-radius: var(--rl);
+      padding: clamp(1.5rem,3.5vw,2.6rem);
+      box-shadow: var(--sh), var(--shg);
+      position: relative; overflow: hidden;
+    }
+    /* green-to-gold shimmer */
+    .hero-card::after {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg,
+        transparent 4%,
+        rgba(51,204,116,.55) 25%,
+        rgba(0,176,80,.80) 42%,
+        rgba(245,200,66,.70) 58%,
+        rgba(255,220,112,.55) 75%,
+        transparent 96%
+      );
+    }
+
+    .brand-row { display: flex; align-items: center; gap: .95rem; margin-bottom: 1rem }
+    .brand-logo {
+      width: 56px; height: 56px; border-radius: 14px;
+      border: 1px solid rgba(0,176,80,.30);
+      background: rgba(0,148,66,.12);
+      padding: .3rem; object-fit: contain;
+      box-shadow: 0 4px 18px rgba(0,176,80,.22);
+      flex: 0 0 auto;
+    }
+    .brand-label { color: var(--dim); font-size: .85rem; font-weight: 600; text-transform: uppercase; letter-spacing: .4px }
+    .brand-sub   { color: var(--muted); font-size: .85rem }
+
+    /* ── CTA ── */
+    .cta-center { display: flex; justify-content: center; margin-top: 2.2rem }
+    .cta {
+      display: inline-flex; align-items: center; gap: .7rem;
+      background: linear-gradient(135deg, #33CC74 0%, #00B050 40%, #009442 76%, #007834 100%);
+      color: #001A08;
+      padding: 1.2rem 3.2rem;
+      border-radius: 16px;
+      font-weight: 900; font-size: 1.15rem; letter-spacing: .15px;
+      box-shadow:
+        0 0 0 1px rgba(0,176,80,.26),
+        0 0 36px rgba(0,176,80,.36),
+        0 8px 24px rgba(0,148,66,.30),
+        0 22px 50px rgba(0,120,52,.24);
+      border: none; cursor: pointer; text-decoration: none;
+      transition: transform .18s, box-shadow .18s, filter .18s;
+    }
+    .cta:hover {
+      transform: translateY(-3px) scale(1.025); filter: brightness(1.07);
+      color: #001A08; text-decoration: none;
+      box-shadow:
+        0 0 0 1px rgba(0,176,80,.42),
+        0 0 52px rgba(0,176,80,.52),
+        0 10px 32px rgba(0,148,66,.42),
+        0 28px 60px rgba(0,120,52,.32);
+    }
+
+    /* ── NOTE ── */
+    .note {
+      border-left: 3px solid var(--ga);
+      padding: .85rem 1rem;
+      background: rgba(0,148,66,.07);
+      border-radius: 0 9px 9px 0;
+      color: var(--sub); margin-top: 1rem;
+    }
+    .note.gold {
+      border-left-color: var(--aua);
+      background: rgba(245,200,66,.07);
+      color: var(--aub);
+    }
+    .note.warn {
+      border-left-color: var(--warn);
+      background: rgba(251,191,36,.07);
+      color: #FEF3C7;
+    }
+
+    /* ── STEPS ── */
+    section.step-guide {
+      padding: clamp(2rem,5vw,3.5rem) 0;
+      border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    }
+    .steps { display: grid; gap: var(--gap); grid-template-columns: 1fr }
+    .step {
+      background: var(--card); border: 1px solid var(--line);
+      border-top: 2px solid rgba(0,176,80,.30); border-radius: var(--r);
+      padding: 1.25rem; box-shadow: var(--sh); transition: transform .18s, box-shadow .18s;
+    }
+    .step:hover { transform: translateY(-3px); box-shadow: var(--sh), var(--shg) }
+    .step .icon {
+      width: 44px; height: 44px; border-radius: 9px;
+      display: inline-grid; place-items: center;
+      background: rgba(0,148,66,.12); margin-bottom: .65rem;
+      font-weight: 800; font-size: .95rem; color: var(--ga);
+      border: 1px solid rgba(0,176,80,.24);
+    }
+
+    /* ── CARD ── */
+    main { padding-top: .5rem }
+    main .card {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: var(--r); padding: 1.5rem; margin: 1.2rem 0; box-shadow: var(--sh);
+    }
+    main .card > h2:first-child { margin-top: 0; border-top: none; padding-top: 0 }
+
+    /* ── TOC ── */
+    .toc { border: 1px solid var(--lg); background: rgba(0,148,66,.05); border-radius: var(--r); padding: 1.1rem 1.3rem }
+    .toc strong { color: var(--ink) }
+    .toc ul { margin: .5rem 0 0; padding-left: 1.1rem }
+    .toc li { margin: .28rem 0; font-size: .96rem }
+    .toc a { font-weight: 600 }
+
+    /* ── CALLOUT GRID ── */
+    .callout-grid { display: grid; gap: var(--gap); grid-template-columns: 1fr; margin-top: .8rem }
+    .mini { background: rgba(255,255,255,.02); border: 1px solid var(--line); border-radius: var(--r); padding: 1rem }
+    .mini h3 { margin-bottom: .35rem }
+    .kpi-badges { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: .55rem }
+    .kpi-badges span {
+      border: 1px solid rgba(0,176,80,.22); background: rgba(0,148,66,.09);
+      color: var(--sub); padding: .26rem .54rem;
+      border-radius: 999px; font-size: .87rem; font-weight: 600;
+    }
+    .kpi-badges span.gold {
+      border-color: rgba(245,200,66,.26); background: rgba(245,200,66,.08);
+      color: var(--aua);
+    }
+
+    /* ── LEVERAGE POSITION VISUAL — unique element ── */
+    .lev-visual {
+      margin-top: 1.1rem;
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      overflow: hidden;
+    }
+    .lev-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: .7rem 1.1rem;
+      background: rgba(0,148,66,.07);
+      border-bottom: 1px solid var(--line);
+      font-size: .85rem; font-weight: 700;
+    }
+    .lev-header .title { color: var(--ink) }
+    .lev-header .badge {
+      padding: .22rem .6rem; border-radius: 999px; font-size: .78rem; font-weight: 800;
+    }
+    .lev-header .badge.lev2 { background: rgba(0,176,80,.15); color: var(--ga) }
+    .lev-header .badge.lev3 { background: rgba(245,200,66,.15); color: var(--aua) }
+    .lev-body { padding: .9rem 1.1rem; display: flex; flex-direction: column; gap: .6rem }
+    .lev-bar-row { display: flex; align-items: center; gap: .7rem }
+    .lev-bar-label { min-width: 90px; font-size: .82rem; font-weight: 600; color: var(--muted) }
+    .lev-bar-track {
+      flex: 1; height: 14px; border-radius: 999px; overflow: hidden;
+      background: rgba(255,255,255,.06); display: flex;
+    }
+    .lev-bar-own  { background: linear-gradient(90deg, #33CC74, #00B050); border-radius: 999px 0 0 999px }
+    .lev-bar-debt { background: linear-gradient(90deg, #F5C842, #D4A82E) }
+    .lev-bar-val  { min-width: 44px; text-align: right; font-size: .82rem; font-weight: 700 }
+    .lev-bar-val.own  { color: var(--ga) }
+    .lev-bar-val.debt { color: var(--aua) }
+    .lev-meta {
+      display: flex; flex-wrap: wrap; gap: .65rem; padding: .75rem 1.1rem;
+      background: rgba(255,255,255,.016);
+      border-top: 1px solid rgba(255,255,255,.05);
+    }
+    .lev-stat { font-size: .82rem }
+    .lev-stat .l { color: var(--dim); font-size: .76rem; text-transform: uppercase; letter-spacing: .3px }
+    .lev-stat .v { color: var(--ink); font-weight: 700 }
+    .lev-divider { height: 1px; background: var(--line); margin: .1rem 0 }
+
+    /* ── TOKO BARS ── */
+    .toko-bar { display: flex; flex-direction: column; gap: .6rem; margin-top: 1rem }
+    .toko-row { display: flex; align-items: center; gap: .85rem }
+    .toko-label { min-width: 200px; font-size: .92rem; color: #CCFAE0; font-weight: 600 }
+    .toko-track { flex: 1; height: 8px; background: rgba(255,255,255,.07); border-radius: 999px; overflow: hidden }
+    .toko-fill  { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--ga), var(--g)) }
+    .toko-fill.gold { background: linear-gradient(90deg, var(--aua), var(--au)) }
+    .toko-val   { min-width: 55px; text-align: right; font-size: .9rem; font-weight: 700; color: var(--ga) }
+    .toko-val.gold { color: var(--aua) }
+
+    /* ── TABLE ── */
+    .table-wrap { overflow-x: auto; border-radius: var(--r); border: 1px solid var(--line) }
+    table { width: 100%; border-collapse: collapse; min-width: 480px }
+    th,td { padding: .8rem .95rem; border-bottom: 1px solid var(--line); text-align: left }
+    th { background: rgba(0,148,66,.07); color: var(--ink); font-weight: 700; font-size: .92rem }
+    tr.hi { background: rgba(0,148,66,.04) }
+    tr:hover td { background: rgba(255,255,255,.018) }
+    tr:last-child td { border-bottom: none }
+    .ok  { color: var(--ok)  }
+    .warn{ color: var(--warn) }
+    .err { color: var(--err)  }
+
+    /* ── EEAT ── */
+    .eeat { background: var(--card); border: 1px solid var(--lg); border-radius: var(--r); padding: 1.5rem; box-shadow: var(--sh) }
+    .eeat > h2:first-child { margin-top: 0; border-top: none; padding-top: 0 }
+
+    /* ── FAQ ── */
+    .faq-item { border-bottom: 1px solid var(--line); padding: .9rem 0 }
+    .faq-item:last-child { border-bottom: none }
+    .faq-button { all: unset; display: flex; justify-content: space-between; align-items: flex-start; width: 100%; cursor: pointer; gap: 1rem }
+    .faq-button:focus-visible { outline: 2px solid var(--g); border-radius: 4px }
+    .faq-button h3 { margin: 0; font-weight: 700; font-size: 1rem; line-height: 1.4 }
+    .faq-content { max-height: 0; overflow: hidden; transition: max-height .26s ease }
+    .faq-content.open { padding-top: .65rem }
+    .faq-plus { font-weight: 800; font-size: 1.35rem; color: var(--ga); flex: 0 0 auto; line-height: 1; transition: transform .2s }
+    .faq-button[aria-expanded="true"] .faq-plus { transform: rotate(45deg) }
+
+    @media(min-width:860px){
+      .steps { grid-template-columns: repeat(4,1fr) }
+      .callout-grid { grid-template-columns: 1fr 1fr }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero" role="banner">
+  <div class="container">
+    <div class="hero-card">
+      <div class="brand-row">
+        <img class="brand-logo" src="alpac.png" alt="Alpaca Finance logo">
+        <div>
+          <div class="brand-label">Leverage Yield Farming Protocol</div>
+          <div class="brand-sub">BNB Chain · Leverage Farming · Lending Vaults · ibTokens · ALPACA Staking · AUSD</div>
+        </div>
+      </div>
+
+      <h1>Alpaca Finance</h1>
+      <p class="lead" style="margin-top:.75rem">
+        The complete guide to <strong>Alpaca Finance</strong> — BNB Chain's
+        largest <strong>leveraged yield farming protocol</strong>,
+        enabling yield farmers to borrow capital and open positions
+        at <strong>up to 6× leverage</strong> on DEX liquidity pairs,
+        while lenders deposit assets into <strong>lending vaults</strong>
+        to earn interest from borrowers.
+        Understand how <strong>leveraged farming positions</strong> work,
+        what <strong>ibTokens</strong> represent,
+        how <strong>debt ratio and liquidation</strong> mechanics
+        protect the protocol and affect farmers,
+        how the <strong>ALPACA token</strong> powers staking
+        and the <strong>Grazing Range</strong>,
+        what <strong>AUSD</strong> — Alpaca's stablecoin —
+        adds to the ecosystem, and the
+        <strong>full risk profile</strong> of leveraged DeFi farming.
+      </p>
+
+      <div class="cta-center">
+        <a href="#" class="cta" aria-label="Open Alpaca Finance">
+          <span>🦙</span> Open Alpaca Finance
+        </a>
+      </div>
+
+      <div class="note warn">
+        <strong>Leveraged yield farming risk disclosure:</strong> Leveraged positions on Alpaca Finance
+        amplify both gains and losses. Adverse price movements between your farmed token pair
+        can cause losses that exceed your initial deposit — including full liquidation.
+        Only use leverage you fully understand and can afford to lose.
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- STEPS -->
+<section class="step-guide" aria-labelledby="how-works">
+  <div class="container">
+    <h2 id="how-works" style="margin-top:0;border-top:none;padding-top:0">
+      How Alpaca Finance Works: Lend or Borrow → Farm with Leverage → Manage Debt → Earn
+    </h2>
+    <div class="steps" role="list">
+      <article class="step" role="listitem">
+        <div class="icon">01</div>
+        <h3>Lenders deposit into lending vaults</h3>
+        <p>Passive lenders deposit BNB, BUSD, USDT, or other assets into Alpaca's lending vaults. Deposits earn continuous interest paid by borrowers. You receive ibTokens (interest-bearing tokens) representing your vault share — redeemable for the deposit plus accrued interest at any time.</p>
+      </article>
+      <article class="step" role="listitem">
+        <div class="icon">02</div>
+        <h3>Farmers borrow and open leveraged positions</h3>
+        <p>Yield farmers deposit one asset and borrow the other from the lending vault to open a leveraged liquidity position at up to 6× on supported pairs. The protocol deploys both assets into the underlying DEX (PancakeSwap) as LP.</p>
+      </article>
+      <article class="step" role="listitem">
+        <div class="icon">03</div>
+        <h3>Earn trading fees + ALPACA rewards</h3>
+        <p>The LP position earns trading fees from the underlying DEX continuously. Alpaca additionally distributes ALPACA token rewards to active farmers — boosting total yield on top of trading fees and creating a dual-revenue farming strategy.</p>
+      </article>
+      <article class="step" role="listitem">
+        <div class="icon">04</div>
+        <h3>Monitor debt ratio — avoid liquidation</h3>
+        <p>Leveraged positions carry a debt ratio (borrowed value / position value). As prices move adversely, debt ratio rises. If it exceeds the liquidation threshold, the position is partially or fully liquidated to repay the debt. Actively managing or closing positions before this threshold is critical.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main class="container" role="main">
+
+  <!-- TOC -->
+  <section class="card toc" aria-label="Table of Contents">
+    <strong>On this page — Alpaca Finance:</strong>
+    <ul>
+      <li><a href="#overview">What is Alpaca Finance and how it fits BNB Chain DeFi</a></li>
+      <li><a href="#lending">Lending vaults: how ibTokens work and what lenders earn</a></li>
+      <li><a href="#leverage">Leveraged yield farming: mechanics, positions, and examples</a></li>
+      <li><a href="#debt-ratio">Debt ratio and liquidation: the most important risk to understand</a></li>
+      <li><a href="#alpaca-token">ALPACA token: staking, the Grazing Range, and tokenomics</a></li>
+      <li><a href="#ausd">AUSD: Alpaca's overcollateralised stablecoin</a></li>
+      <li><a href="#strategies">Farming strategies: neutral, bullish, and bearish positions explained</a></li>
+      <li><a href="#safety">Alpaca Finance security and risk profile</a></li>
+      <li><a href="#comparison">Alpaca Finance vs Rabbit Finance vs Venus: BNB Chain leverage comparison</a></li>
+      <li><a href="#best-practices">Best practices for Alpaca lenders and farmers</a></li>
+      <li><a href="#troubleshooting">Troubleshooting: ibToken redemption, position management, rewards</a></li>
+      <li><a href="#eeat">Authoritative sources &amp; references</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+  </section>
+
+  <!-- OVERVIEW -->
+  <section class="card" id="overview">
+    <h2>What Is Alpaca Finance and How It Fits BNB Chain DeFi</h2>
+    <p>
+      <strong>Alpaca Finance</strong> launched in February 2021 as BNB Chain's first
+      and largest leveraged yield farming protocol — a DeFi primitive that
+      bridges <strong>lending</strong> and <strong>yield farming</strong>
+      by letting borrowers access capital from lenders to amplify their LP positions.
+    </p>
+    <p>
+      The protocol solves a fundamental tension in yield farming: high-yield LP opportunities
+      are capital-intensive, but most participants don't have enough assets to deploy
+      meaningful capital. Alpaca lets farmers multiply their effective capital by
+      borrowing from a pool of passive lenders — who earn interest without taking
+      on the risk of leveraged positions themselves.
+    </p>
+
+    <div class="callout-grid">
+      <div class="mini">
+        <h3>For passive lenders</h3>
+        <p style="color:var(--muted)">Deposit BNB, BUSD, USDT, or other supported assets into Alpaca's lending vaults and earn continuous interest paid by leveraged farmers. No active management required — receive ibTokens and redeem at any time. Significantly higher APY than typical bank deposits with the risk profile of a lending protocol.</p>
+        <div class="kpi-badges"><span>Passive income</span><span>ibTokens received</span><span>No leverage exposure</span></div>
+      </div>
+      <div class="mini">
+        <h3>For leveraged yield farmers</h3>
+        <p style="color:var(--muted)">Deposit one token, borrow the other, and open an LP position at 2×–6× leverage — amplifying both yield and risk. Earn trading fees from the LP position plus ALPACA rewards, minus the borrowing cost paid to lenders. Net yield depends on leverage multiple, trading fees, and ALPACA price.</p>
+        <div class="kpi-badges"><span>Up to 6× leverage</span><span>LP + ALPACA yield</span><span>Debt risk</span></div>
+      </div>
+      <div class="mini">
+        <h3>For ALPACA stakers</h3>
+        <p style="color:var(--muted)">Stake ALPACA in the Grazing Range to earn partner token rewards and a share of protocol fees. The Grazing Range pools distribute tokens from Alpaca's ecosystem partners — providing yield on ALPACA holdings without adding LP risk.</p>
+        <div class="kpi-badges"><span>Grazing Range</span><span>Partner tokens</span><span>Protocol fees</span></div>
+      </div>
+      <div class="mini">
+        <h3>For AUSD users</h3>
+        <p style="color:var(--muted)">Mint AUSD — Alpaca's overcollateralised stablecoin — by depositing ibTokens as collateral. AUSD allows lending vault depositors to access liquidity without withdrawing their interest-earning position — borrowing against yield-bearing collateral for additional capital efficiency.</p>
+        <div class="kpi-badges"><span>ibToken collateral</span><span>Stablecoin liquidity</span><span>No withdrawal needed</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LENDING -->
+  <section class="card" id="lending">
+    <h2>Lending Vaults: How ibTokens Work and What Lenders Earn</h2>
+    <p>
+      Alpaca's <strong>lending vaults</strong> are the capital pool that makes leveraged
+      farming possible — passive lenders deposit assets, leveraged farmers borrow them,
+      and interest flows from borrowers to lenders continuously.
+    </p>
+
+    <div class="callout-grid">
+      <div class="mini">
+        <h3>ibTokens — interest-bearing tokens</h3>
+        <p style="color:var(--muted)">When you deposit BNB into Alpaca's BNB lending vault, you receive <strong>ibBNB</strong> — Alpaca's interest-bearing token representing your share of the vault. As borrowers pay interest, the vault grows and ibBNB's redemption value increases relative to BNB. When you redeem ibBNB, you receive BNB plus all accrued interest. ibTokens auto-compound — no claiming required.</p>
+        <div class="kpi-badges"><span>ibBNB, ibBUSD, ibUSDT</span><span>Auto-compounding</span><span>Redeemable anytime</span></div>
+      </div>
+      <div class="mini">
+        <h3>Lending interest rate mechanics</h3>
+        <p style="color:var(--muted)">Alpaca's lending rate is variable — it rises as utilisation (percentage of the vault borrowed) increases and falls when utilisation is low. When high demand for leverage pushes utilisation above ~90%, interest rates spike sharply to incentivise lenders and discourage borrowers — a standard kink-model interest rate curve used across DeFi lending protocols.</p>
+        <div class="kpi-badges"><span>Variable rate</span><span>Utilisation-based</span><span>Kink model</span></div>
+      </div>
+    </div>
+
+    <div class="table-wrap" style="margin-top:1rem">
+      <table aria-label="Lending vault parameters">
+        <thead>
+          <tr><th>Parameter</th><th>Details</th><th>Lender implication</th></tr>
+        </thead>
+        <tbody>
+          <tr class="hi">
+            <td>Supported assets</td>
+            <td>BNB, BUSD, USDT, ETH, BTCB, TUSD, and others</td>
+            <td>Deposit the asset you naturally hold — no need to convert</td>
+          </tr>
+          <tr>
+            <td>Interest rate</td>
+            <td>Variable — rises with utilisation; spikes above 90% utilisation</td>
+            <td>Higher demand from farmers = higher APY for lenders</td>
+          </tr>
+          <tr class="hi">
+            <td>ibToken exchange rate</td>
+            <td>Starts at 1:1 with underlying; grows continuously as interest accrues</td>
+            <td>ibToken's BNB value only goes up — the exchange rate never decreases</td>
+          </tr>
+          <tr>
+            <td>Withdrawal liquidity</td>
+            <td>Depends on vault utilisation — high utilisation may temporarily limit withdrawals</td>
+            <td>During peak borrowing demand, some portion of deposits may be locked in active loans</td>
+          </tr>
+          <tr class="hi">
+            <td>Default risk</td>
+            <td>Covered by liquidation mechanism — positions liquidated before they can default</td>
+            <td>Liquidation bots protect lenders from undercollateralised defaults in normal market conditions</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- LEVERAGE -->
+  <section class="card" id="leverage">
+    <h2>Leveraged Yield Farming: Mechanics, Positions, and Examples</h2>
+    <p>
+      A leveraged farming position on Alpaca combines your own capital with borrowed capital
+      to create a larger LP position than you could deploy with your assets alone.
+      The yield is amplified — but so is the risk.
+    </p>
+
+    <!-- Leverage position visualiser — unique design element -->
+    <h3 style="margin-top:1.1rem;margin-bottom:.5rem">Position structure at 2× and 3× leverage — BNB/BUSD farm (illustrative)</h3>
+
+    <div class="lev-visual" aria-label="Leverage position comparison">
+      <!-- 2x leverage -->
+      <div class="lev-header">
+        <span class="title">2× Leverage — deposit 1 BNB, borrow 1 BNB equivalent in BUSD</span>
+        <span class="badge lev2">2× LEVERAGE</span>
+      </div>
+      <div class="lev-body">
+        <div class="lev-bar-row">
+          <span class="lev-bar-label" style="color:var(--ga)">Your capital</span>
+          <div class="lev-bar-track">
+            <div class="lev-bar-own" style="width:50%"></div>
+          </div>
+          <span class="lev-bar-val own">50%</span>
+        </div>
+        <div class="lev-bar-row">
+          <span class="lev-bar-label" style="color:var(--aua)">Borrowed debt</span>
+          <div class="lev-bar-track">
+            <div class="lev-bar-own" style="width:0%"></div>
+            <div class="lev-bar-debt" style="width:50%"></div>
+          </div>
+          <span class="lev-bar-val debt">50%</span>
+        </div>
+      </div>
+      <div class="lev-meta">
+        <div class="lev-stat"><div class="l">Debt ratio</div><div class="v" style="color:var(--ok)">50%</div></div>
+        <div class="lev-stat"><div class="l">LP position</div><div class="v">2× your deposit</div></div>
+        <div class="lev-stat"><div class="l">Liquidation at</div><div class="v" style="color:var(--warn)">~83% debt ratio</div></div>
+        <div class="lev-stat"><div class="l">Safety buffer</div><div class="v" style="color:var(--ok)">33 ppt to liquidation</div></div>
+      </div>
+
+      <div class="lev-divider"></div>
+
+      <!-- 3x leverage -->
+      <div class="lev-header">
+        <span class="title">3× Leverage — deposit 1 BNB, borrow 2 BNB equivalent in BUSD</span>
+        <span class="badge lev3">3× LEVERAGE</span>
+      </div>
+      <div class="lev-body">
+        <div class="lev-bar-row">
+          <span class="lev-bar-label" style="color:var(--ga)">Your capital</span>
+          <div class="lev-bar-track">
+            <div class="lev-bar-own" style="width:33%"></div>
+          </div>
+          <span class="lev-bar-val own">33%</span>
+        </div>
+        <div class="lev-bar-row">
+          <span class="lev-bar-label" style="color:var(--aua)">Borrowed debt</span>
+          <div class="lev-bar-track">
+            <div class="lev-bar-own" style="width:0%"></div>
+            <div class="lev-bar-debt" style="width:67%"></div>
+          </div>
+          <span class="lev-bar-val debt">67%</span>
+        </div>
+      </div>
+      <div class="lev-meta">
+        <div class="lev-stat"><div class="l">Debt ratio</div><div class="v" style="color:var(--warn)">67%</div></div>
+        <div class="lev-stat"><div class="l">LP position</div><div class="v">3× your deposit</div></div>
+        <div class="lev-stat"><div class="l">Liquidation at</div><div class="v" style="color:var(--err)">~83% debt ratio</div></div>
+        <div class="lev-stat"><div class="l">Safety buffer</div><div class="v" style="color:var(--warn)">16 ppt to liquidation</div></div>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:1.2rem">
+      <strong>The leverage trade-off in one sentence:</strong> Higher leverage means
+      a larger LP position earning more yield — but a smaller safety buffer before
+      liquidation. At 3× leverage, the position starts just 16 percentage points
+      away from liquidation. A sustained price move against the debt token
+      can close that gap rapidly.
+    </div>
+
+    <div class="table-wrap" style="margin-top:1rem">
+      <table aria-label="Leverage yield farming mechanics">
+        <thead>
+          <tr><th>Step</th><th>What happens</th></tr>
+        </thead>
+        <tbody>
+          <tr class="hi">
+            <td>1. Deposit token A</td>
+            <td>You deposit your chosen asset (e.g. BNB) as the base of your leveraged position</td>
+          </tr>
+          <tr>
+            <td>2. Borrow token B</td>
+            <td>Alpaca borrows token B (e.g. BUSD) from the lending vault on your behalf according to your chosen leverage multiple</td>
+          </tr>
+          <tr class="hi">
+            <td>3. Create LP position</td>
+            <td>Both tokens are deployed as liquidity into the underlying DEX (PancakeSwap) — creating an LP position worth leverage× your deposit</td>
+          </tr>
+          <tr>
+            <td>4. Earn yield on full position</td>
+            <td>Trading fees accrue on the full LP position size (not just your deposit) plus ALPACA rewards — amplified by leverage multiple</td>
+          </tr>
+          <tr class="hi">
+            <td>5. Pay borrowing interest</td>
+            <td>Interest accrues on the borrowed portion continuously — this cost is deducted from your yield. Net yield = (leveraged gross yield) − (borrowing cost)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- DEBT RATIO -->
+  <section class="card" id="debt-ratio">
+    <h2>Debt Ratio and Liquidation: The Most Important Risk to Understand</h2>
+    <p>
+      <strong>Debt ratio</strong> is the single most important metric for any leveraged
+      farming position on Alpaca. It represents the proportion of your position's
+      total value that is borrowed — and when it exceeds the liquidation threshold,
+      your position is automatically reduced to protect lenders.
+    </p>
+
+    <div class="callout-grid">
+      <div class="mini">
+        <h3>What increases debt ratio</h3>
+        <p style="color:var(--muted)">Price movement of the borrowed asset relative to your deposited asset. If you borrowed BUSD and the paired BNB price falls, your LP position loses value while debt stays fixed — debt ratio rises. Interest accrual on your debt also gradually increases debt ratio over time if not managed. High-leverage positions are more sensitive to price movement.</p>
+        <div class="kpi-badges"><span>Adverse price moves</span><span>Interest accrual</span><span>LP impermanent loss</span></div>
+      </div>
+      <div class="mini">
+        <h3>Liquidation mechanics</h3>
+        <p style="color:var(--muted)">When debt ratio exceeds the kill factor (~83% for most pairs), liquidation bots call the position's liquidation function. The position is partially or fully closed — LP tokens are redeemed, debt repaid from proceeds, and remaining equity returned to you minus a liquidation penalty. Acting early (closing or adding collateral) before the kill factor is always better than waiting for liquidation.</p>
+        <div class="kpi-badges"><span>~83% kill factor</span><span>Liquidation bots</span><span>Penalty on liquidation</span></div>
+      </div>
+    </div>
+
+    <div class="table-wrap" style="margin-top:1rem">
+      <table aria-label="Debt ratio thresholds">
+        <thead>
+          <tr><th>Debt ratio range</th><th>Status</th><th>Recommended action</th></tr>
+        </thead>
+        <tbody>
+          <tr class="hi">
+            <td>0% – 50%</td>
+            <td class="ok">Safe — comfortable buffer</td>
+            <td>No action needed; continue farming</td>
+          </tr>
+          <tr>
+            <td>50% – 70%</td>
+            <td class="ok">Healthy — moderate leverage</td>
+            <td>Monitor regularly; set price alerts</td>
+          </tr>
+          <tr class="hi">
+            <td>70% – 80%</td>
+            <td class="warn">Caution — approaching danger zone</td>
+            <td>Consider adding collateral, reducing leverage, or partially closing</td>
+          </tr>
+          <tr>
+            <td>80% – 83%</td>
+            <td class="err">Danger — liquidation imminent</td>
+            <td>Close or reduce position immediately — liquidation bots are monitoring</td>
+          </tr>
+          <tr class="hi">
+            <td>Above ~83%</td>
+            <td class="err">Liquidated — position force-closed</td>
+            <td>Remaining equity returned minus liquidation penalty; restart fresh position</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note warn">
+      <strong>Set price alerts before opening any leveraged position:</strong>
+      Calculate the token price that would bring your debt ratio to 80%
+      before opening your position. Set a DexTools or Binance price alert at that level.
+      Leveraged positions can move toward liquidation faster than you expect
+      in volatile markets — especially overnight when you're not watching.
+    </div>
+  </section>
+
+  <!-- ALPACA TOKEN -->
+  <section class="card" id="alpaca-token">
+    <h2>ALPACA Token: Staking, the Grazing Range, and Tokenomics</h2>
+    <p>
+      <strong>ALPACA</strong> is Alpaca Finance's native BEP-20 governance and utility token —
+      distributed to protocol participants and staked for ecosystem rewards
+      via the <strong>Grazing Range</strong>.
+    </p>
+
+    <div class="table-wrap">
+      <table aria-label="ALPACA token utility">
+        <thead>
+          <tr><th>Function</th><th>How ALPACA is used</th></tr>
+        </thead>
+        <tbody>
+          <tr class="hi">
+            <td>Farming rewards</td>
+            <td>ALPACA distributed to leveraged farmers and lenders as additional yield on top of trading fees and interest — the primary emission mechanism</td>
+          </tr>
+          <tr>
+            <td>Grazing Range staking</td>
+            <td>Stake ALPACA in the Grazing Range to earn partner token rewards and protocol fee distributions — passive yield for long-term ALPACA holders</td>
+          </tr>
+          <tr class="hi">
+            <td>Governance</td>
+            <td>ALPACA holders vote on protocol parameters — supported pairs, leverage limits, interest rate models, and treasury usage</td>
+          </tr>
+          <tr>
+            <td>Protocol fee buyback</td>
+            <td>A portion of Alpaca's protocol fees are used to buy back and distribute ALPACA — creating real demand from protocol activity</td>
+          </tr>
+          <tr class="hi">
+            <td>xALPACA (vote-locked)</td>
+            <td>ALPACA can be locked for xALPACA — a vote-escrowed governance position with boosted rewards for longer lock commitments</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="toko-bar" role="list" aria-label="ALPACA token distribution">
+      <div class="toko-row" role="listitem">
+        <span class="toko-label">Farming incentives</span>
+        <div class="toko-track"><div class="toko-fill" style="width:70%"></div></div>
+        <span class="toko-val">~70%</span>
+      </div>
+      <div class="toko-row" role="listitem">
+        <span class="toko-label">Team (vested)</span>
+        <div class="toko-track"><div class="toko-fill gold" style="width:15%"></div></div>
+        <span class="toko-val gold">~15%</span>
+      </div>
+      <div class="toko-row" role="listitem">
+        <span class="toko-label">Ecosystem / treasury</span>
+        <div class="toko-track"><div class="toko-fill" style="width:10%"></div></div>
+        <span class="toko-val">~10%</span>
+      </div>
+      <div class="toko-row" role="listitem">
+        <span class="toko-label">Private sale</span>
+        <div class="toko-track"><div class="toko-fill gold" style="width:5%"></div></div>
+        <span class="toko-val gold">~5%</span>
+      </div>
+    </div>
+    <p style="font-size:.88rem; color:var(--dim); margin-top:.6rem">Indicative distribution — verify exact figures via official Alpaca Finance documentation.</p>
+  </section>
+
+  <!-- AUSD -->
+  <section class="card" id="ausd">
+    <h2>AUSD: Alpaca's Overcollateralised Stablecoin</h2>
+    <p>
+      <strong>AUSD</strong> is Alpaca Finance's USD-pegged stablecoin,
+      minted by depositing <strong>ibTokens</strong> (interest-bearing lending vault tokens)
+      as collateral. It enables lenders to access dollar liquidity without
+      withdrawing their yield-earning position.
+    </p>
+
+    <div class="callout-grid">
+      <div class="mini">
+        <h3>How AUSD minting works</h3>
+        <p style="color:var(--muted)">Deposit ibBNB, ibBUSD, or other ibTokens as collateral into Alpaca's AUSD facility. Mint AUSD up to the collateralisation ratio — typically 80% of your collateral value. Your ibTokens continue earning lending interest while acting as AUSD collateral. Repay AUSD to unlock and redeem your collateral.</p>
+        <div class="kpi-badges"><span>ibToken collateral</span><span>~80% CR</span><span>Collateral still earns</span></div>
+      </div>
+      <div class="mini">
+        <h3>AUSD use cases</h3>
+        <p style="color:var(--muted)">Use minted AUSD for additional farming without withdrawing lending deposits, swap for BUSD/USDT for spending or DeFi operations, or provide AUSD liquidity in Alpaca's AUSD stablecoin pool to earn additional yield. AUSD enables capital-efficient looping strategies for advanced DeFi participants.</p>
+        <div class="kpi-badges"><span>Additional farming</span><span>Stablecoin liquidity</span><span>Looping strategies</span></div>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>AUSD vs direct withdrawal:</strong> If you hold ibBNB earning 8% APY
+      and need USDC, you have two options: (1) withdraw ibBNB, convert to USDC —
+      forfeiting the 8% yield; or (2) mint AUSD against ibBNB as collateral,
+      swap AUSD for USDC — maintaining your 8% yield on the collateral.
+      The second is more capital-efficient but introduces AUSD collateral risk
+      if the BNB price falls sharply relative to your collateralisation ratio.
+    </div>
+  </section>
+
+  <!-- STRATEGIES -->
+  <section class="card" id="strategies">
+    <h2>Farming Strategies: Neutral, Bullish, and Bearish Positions on Alpaca</h2>
+    <p>
+      Alpaca's leveraged farming allows traders to express directional views —
+      not just neutral yield farming — by choosing which token to borrow.
+      The borrowed token determines your effective directional exposure.
+    </p>
+
+    <div class="table-wrap">
+      <table aria-label="Farming strategy guide">
+        <thead>
+          <tr><th>Strategy</th><th>How to implement</th><th>Market view</th><th>Risk</th></tr>
+        </thead>
+        <tbody>
+          <tr class="hi">
+            <td>Market neutral</td>
+            <td>Borrow the stablecoin in a TOKEN/STABLE pair (e.g. borrow BUSD in BNB/BUSD)</td>
+            <td>Agnostic — earn yield without directional price bet</td>
+            <td class="warn">Impermanent loss if BNB moves significantly; IL at leverage</td>
+          </tr>
+          <tr>
+            <td>Leveraged long</td>
+            <td>Borrow the stablecoin — your net exposure is long the volatile asset</td>
+            <td>Bullish on the volatile token</td>
+            <td class="err">Amplified downside if volatile asset falls; debt ratio rises fast</td>
+          </tr>
+          <tr class="hi">
+            <td>Leveraged short</td>
+            <td>Borrow the volatile token (e.g. borrow BNB in BNB/BUSD) — your net exposure is short the volatile asset</td>
+            <td>Bearish on the volatile token</td>
+            <td class="err">Amplified loss if volatile asset rises; debt ratio rises when price pumps</td>
+          </tr>
+          <tr>
+            <td>Pseudo delta-neutral</td>
+            <td>Combine a Alpaca leveraged short with a spot long to achieve near-zero price exposure while collecting yield</td>
+            <td>Yield-only; price-neutral</td>
+            <td class="warn">Complex; rebalancing required; execution risk</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note gold">
+      <strong>The leveraged long is the most popular but most dangerous:</strong>
+      Borrowing a stablecoin to open a TOKEN/STABLE leveraged position is common
+      because it amplifies yield when the token appreciates. However, in a bear market
+      the token drops, LP value falls, debt ratio spikes, and liquidation can occur
+      before the farmer reacts. The market-neutral strategy (borrow stablecoin,
+      hold balanced LP) offers more predictable risk management for most participants.
+    </div>
+  </section>
+
+  <!-- SAFETY -->
+  <section class="card" id="safety">
+    <h2>Alpaca Finance Security and Risk Profile</h2>
+
+    <div class="table-wrap">
+      <table aria-label="Risk analysis">
+        <thead>
+          <tr><th>Risk</th><th>Level</th><th>Mitigation</th></tr>
+        </thead>
+        <tbody>
+          <tr class="hi">
+            <td>Leveraged position liquidation</td>
+            <td class="err">High (leverage-dependent)</td>
+            <td>Use lower leverage (2×); set price alerts at 80% debt ratio threshold; monitor daily; close positions in volatile markets</td>
+          </tr>
+          <tr>
+            <td>Impermanent loss × leverage</td>
+            <td class="err">High</td>
+            <td>IL in a leveraged LP position is amplified by the leverage multiple. Market-neutral strategy (borrow stable) reduces directional IL vs leveraged-long positions</td>
+          </tr>
+          <tr class="hi">
+            <td>Smart-contract exploit</td>
+            <td class="warn">Medium</td>
+            <td>Alpaca Finance has been audited by multiple firms and operated since February 2021 with significant TVL. Multiple audits available in official documentation. Bug bounty programme active.</td>
+          </tr>
+          <tr>
+            <td>Lending vault liquidity crunch</td>
+            <td class="warn">Low-Medium</td>
+            <td>During high utilisation periods, vault withdrawals may be temporarily constrained. The interest rate model auto-raises rates to attract lenders — typically resolves within hours</td>
+          </tr>
+          <tr class="hi">
+            <td>ALPACA token price depreciation</td>
+            <td class="warn">Medium</td>
+            <td>ALPACA rewards are a significant component of farming yield — falling ALPACA price reduces USD yield. Always evaluate net yield assuming ALPACA at zero to understand the baseline fee income</td>
+          </tr>
+          <tr>
+            <td>Phishing / fake Alpaca sites</td>
+            <td class="err">High (user-controlled)</td>
+            <td>Bookmark app.alpacafinance.org directly; verify domain every session; never approve transactions on external sites claiming to be Alpaca</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- COMPARISON -->
+  <section class="card" id="comparison">
+    <h2>Alpaca Finance vs Rabbit Finance vs Venus: BNB Chain Leverage DeFi Comparison</h2>
+
+    <div class="table-wrap">
+      <table aria-label="BNB Chain leverage DeFi comparison">
+        <thead>
+          <tr><th>Feature</th><th>Alpaca Finance</th><th>Rabbit Finance</th><th>Venus Protocol</th></tr>
+        </thead>
+        <tbody>
+          <tr class="hi">
+            <td>Primary product</td>
+            <td class="ok">Leveraged yield farming</td>
+            <td class="ok">Leveraged yield farming</td>
+            <td class="warn">Lending + margin trading</td>
+          </tr>
+          <tr>
+            <td>Max leverage</td>
+            <td class="ok">Up to 6×</td>
+            <td class="ok">Up to 10× (higher risk)</td>
+            <td class="warn">Up to 3× (margin trading)</td>
+          </tr>
+          <tr class="hi">
+            <td>Lending vaults</td>
+            <td class="ok">Yes — ibTokens</td>
+            <td class="ok">Yes</td>
+            <td class="ok">Yes — vTokens</td>
+          </tr>
+          <tr>
+            <td>Native stablecoin</td>
+            <td class="ok">AUSD</td>
+            <td class="err">No</td>
+            <td class="ok">VAI (has had peg issues)</td>
+          </tr>
+          <tr class="hi">
+            <td>TVL &amp; market position</td>
+            <td class="ok">Largest leveraged farming TVL on BSC</td>
+            <td class="warn">Smaller — niche</td>
+            <td class="ok">Large — broader BSC DeFi</td>
+          </tr>
+          <tr>
+            <td>Audit &amp; track record</td>
+            <td class="ok">Multiple audits; since Feb 2021</td>
+            <td class="warn">Fewer audits; smaller team</td>
+            <td class="ok">Multiple audits; since 2021</td>
+          </tr>
+          <tr class="hi">
+            <td>ALPACA/governance token</td>
+            <td class="ok">ALPACA + xALPACA</td>
+            <td class="warn">RABBIT</td>
+            <td class="ok">XVS</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note" style="margin-top:1rem">
+      <strong>Why Alpaca leads BNB Chain leveraged farming:</strong> Alpaca Finance's
+      combination of longest track record (since February 2021), most audits,
+      highest TVL, broadest pair support, and the ibToken + AUSD capital efficiency layer
+      make it the reference protocol for leveraged yield farming on BNB Chain.
+      Rabbit Finance's higher maximum leverage (10×) is available but carries
+      proportionally higher liquidation risk for less experienced farmers.
+    </div>
+  </section>
+
+  <!-- BEST PRACTICES -->
+  <section class="card" id="best-practices">
+    <h2>Best Practices for Alpaca Lenders and Leveraged Farmers</h2>
+
+    <h3>For lending vault depositors</h3>
+    <ul style="padding-left:1.2rem; margin-bottom:1.2rem">
+      <li style="margin-bottom:.5rem"><strong>Monitor vault utilisation before depositing for liquidity</strong> — if utilisation is above 90%, withdrawal may be delayed until utilisation falls. Deposit assets you don't need immediate access to during high-leverage periods.</li>
+      <li style="margin-bottom:.5rem"><strong>Use ibTokens as AUSD collateral for capital efficiency</strong> — instead of withdrawing vault positions, mint AUSD against ibTokens to access liquidity while maintaining yield.</li>
+      <li><strong>Evaluate net APY including ALPACA rewards correctly</strong> — total displayed APY includes ALPACA token emissions. Calculate the base interest rate (without ALPACA) as your minimum realistic yield; treat ALPACA rewards as variable upside.</li>
+    </ul>
+
+    <h3>For leveraged yield farmers</h3>
+    <ul style="padding-left:1.2rem">
+      <li style="margin-bottom:.5rem"><strong>Start at 2× leverage until you fully understand debt ratio mechanics</strong> — 2× gives the most comfortable buffer (50% debt ratio starting, ~33 percentage points to liquidation). Higher leverage is only appropriate after tracking a 2× position through a full market cycle.</li>
+      <li style="margin-bottom:.5rem"><strong>Calculate your liquidation price before opening</strong> — Alpaca's interface shows the price at which your debt ratio reaches the kill factor. Write it down. Set a BscScan or price alert at a level 20% above your liquidation price.</li>
+      <li style="margin-bottom:.5rem"><strong>Choose market-neutral strategy for your first leveraged position</strong> — borrow the stablecoin side of a TOKEN/STABLE pair to minimise directional price risk. Leveraged longs and shorts require more active management.</li>
+      <li style="margin-bottom:.5rem"><strong>Close positions before major market events</strong> — protocol announcements, token unlocks, and macro events that can cause sharp BNB price moves are when leveraged positions are most vulnerable. When in doubt, close and re-enter after the event.</li>
+      <li><strong>Never use leverage you can't afford to lose entirely</strong> — in extreme market conditions, positions can be liquidated with zero equity returned if price moves are severe. Size leveraged positions at amounts where total loss is acceptable.</li>
+    </ul>
+  </section>
+
+  <!-- TROUBLESHOOTING -->
+  <section class="card" id="troubleshooting">
+    <h2>Troubleshooting Alpaca Finance: ibTokens, Positions, and Rewards</h2>
+
+    <h3>"My ibToken balance doesn't show the expected amount after withdrawal"</h3>
+    <ul style="padding-left:1.2rem">
+      <li>ibToken redemption burns your ibTokens and returns the underlying asset plus accrued interest. The exchange rate has grown since deposit — you'll receive more underlying token than you deposited. If the received amount seems wrong, check the current ibToken exchange rate on the Alpaca interface; the BNB per ibBNB rate increases continuously.</li>
+      <li>Verify the withdrawal transaction on BscScan — confirm both the ibToken burn and the BNB/underlying token received in the same transaction.</li>
+    </ul>
+
+    <h3>"My leveraged farming position was liquidated — what do I do?"</h3>
+    <ul style="padding-left:1.2rem">
+      <li>A liquidated position returns your remaining equity (position value minus debt minus liquidation penalty) to your wallet. Check your wallet's BEP-20 token history on BscScan to confirm what was returned.</li>
+      <li>Review the debt ratio history — Alpaca's interface shows historical debt ratio for each position. Identify what price movement triggered the liquidation so you can calibrate leverage and monitoring frequency for future positions.</li>
+    </ul>
+
+    <h3>"My ALPACA farming rewards aren't showing"</h3>
+    <ul style="padding-left:1.2rem">
+      <li>ALPACA rewards accrue per block but are displayed with a slight UI refresh delay. Reload the Alpaca interface and check the pending ALPACA displayed for your active positions.</li>
+      <li>Ensure your LP position is actively staked in Alpaca's farm — opening a leveraged position automatically stakes, but confirm your position shows as "farming" in the Alpaca dashboard.</li>
+    </ul>
+
+    <div class="note">
+      <strong>BscScan is the authoritative record:</strong>
+      For any Alpaca Finance transaction — lending deposits, farming position opens/closes,
+      ALPACA reward claims — BscScan with your wallet address shows the complete
+      on-chain history. The Alpaca UI may occasionally lag; BscScan never does.
+    </div>
+  </section>
+
+  <!-- EEAT -->
+  <section class="eeat" id="eeat" aria-labelledby="eeat-title">
+    <h2 id="eeat-title">Alpaca Finance: Authoritative References &amp; External Sources</h2>
+
+    <h3>Alpaca Finance — Official Sources</h3>
+    <ul style="padding-left:1.2rem">
+      <li><a href="https://app.alpacafinance.org/" target="_blank" rel="noopener nofollow">Alpaca Finance — Official App</a></li>
+      <li><a href="https://docs.alpacafinance.org/" target="_blank" rel="noopener nofollow">Alpaca Finance — Official Documentation</a></li>
+      <li><a href="https://github.com/alpaca-finance" target="_blank" rel="noopener nofollow">Alpaca Finance — GitHub (Smart Contracts)</a></li>
+      <li><a href="https://medium.com/alpaca-finance" target="_blank" rel="noopener nofollow">Alpaca Finance — Official Blog</a></li>
+    </ul>
+
+    <h3>BNB Chain Context</h3>
+    <ul style="padding-left:1.2rem">
+      <li><a href="https://bscscan.com/" target="_blank" rel="noopener nofollow">BscScan — BNB Chain Block Explorer</a></li>
+      <li><a href="https://chainlist.org/" target="_blank" rel="noopener nofollow">Chainlist — Add BNB Chain to Wallet</a></li>
+    </ul>
+
+    <h3>Analytics &amp; Security</h3>
+    <ul style="padding-left:1.2rem">
+      <li><a href="https://defillama.com/protocol/alpaca-finance" target="_blank" rel="noopener nofollow">DeFiLlama — Alpaca Finance TVL &amp; Data</a></li>
+      <li><a href="https://dune.com/browse/dashboards" target="_blank" rel="noopener nofollow">Dune Analytics — Alpaca On-Chain Dashboards</a></li>
+      <li><a href="https://revoke.cash/" target="_blank" rel="noopener nofollow">Revoke.cash — Token Approval Manager</a></li>
+    </ul>
+
+    <div class="note" style="margin-top:1.2rem">
+      <strong>About:</strong> Prepared by Crypto Finance Experts as a practical, SEO-oriented knowledge base for
+      <em>Alpaca Finance</em>: leveraged yield farming, lending vaults, ibTokens, debt ratio management, ALPACA staking, AUSD stablecoin, and security.
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="card" id="faq" aria-labelledby="faq-title">
+    <h2 id="faq-title" style="margin-top:0;border-top:none;padding-top:0">Alpaca Finance: Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f1" id="b1">
+        <h3>What is Alpaca Finance and how is it different from regular yield farming?</h3><span class="faq-plus">+</span>
+      </button>
+      <div id="f1" class="faq-content" role="region" aria-labelledby="b1">
+        <p>Alpaca Finance is a leveraged yield farming protocol on BNB Chain. Regular yield farming means providing liquidity with assets you already own and earning trading fees and token rewards. Alpaca's leveraged farming lets you borrow additional capital from lending vaults to open a position 2–6× larger than your deposit — amplifying both yield and risk. Passive lenders deposit assets into vaults and earn interest without taking leveraged risk. The two roles are complementary: farmers need capital, lenders supply it, and interest flows from farmers to lenders.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f2" id="b2">
+        <h3>What is an ibToken and how does it earn interest?</h3><span class="faq-plus">+</span>
+      </button>
+      <div id="f2" class="faq-content" role="region" aria-labelledby="b2">
+        <p>ibTokens (interest-bearing tokens) are what you receive when depositing into Alpaca's lending vaults. When you deposit BNB, you receive ibBNB at the current exchange rate. As borrowers pay interest, the vault grows and ibBNB's exchange rate increases — each ibBNB becomes redeemable for more BNB over time. This compounding happens automatically with no claiming required. When you redeem ibBNB, you burn the ibTokens and receive BNB plus all accrued interest. ibTokens can also be used as AUSD collateral while still earning lending yield.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f3" id="b3">
+        <h3>What is debt ratio and when does liquidation happen?</h3><span class="faq-plus">+</span>
+      </button>
+      <div id="f3" class="faq-content" role="region" aria-labelledby="b3">
+        <p>Debt ratio is the percentage of your farming position's total value that is borrowed. A 2× leverage position starts at ~50% debt ratio (half your position is borrowed). As prices move against you (reducing position value while debt stays fixed), debt ratio rises. When debt ratio exceeds the kill factor (~83% for most pairs), liquidation bots automatically close the position — selling LP tokens, repaying the debt, and returning your remaining equity minus a liquidation penalty. At 3× leverage, the starting debt ratio is ~67%, leaving only ~16 percentage points of buffer before liquidation.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f4" id="b4">
+        <h3>How can I use leverage to go long or short on BNB?</h3><span class="faq-plus">+</span>
+      </button>
+      <div id="f4" class="faq-content" role="region" aria-labelledby="b4">
+        <p>In a BNB/BUSD leveraged position: borrowing BUSD (the stable) gives you a net long BNB position — you profit more if BNB rises (your LP gains value) but are hurt more if it falls. Borrowing BNB (the volatile asset) gives you a net short BNB position — you profit if BNB falls relative to BUSD but are liquidated if BNB price rises enough. The borrowed asset is the one you're effectively short. Market-neutral positioning borrows the stablecoin and accepts symmetric IL risk without directional bias.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f5" id="b5">
+        <h3>What is the Grazing Range and how does ALPACA staking work?</h3><span class="faq-plus">+</span>
+      </button>
+      <div id="f5" class="faq-content" role="region" aria-labelledby="b5">
+        <p>The Grazing Range is Alpaca Finance's staking programme for ALPACA holders. Stake ALPACA tokens in available Grazing Range pools to earn partner token rewards — various BNB Chain projects distribute their tokens to Alpaca stakers as a partnership distribution mechanism. Additionally, protocol fees (from lending and farming activity) flow to ALPACA stakers. xALPACA (vote-locked ALPACA) provides boosted rewards for longer lock commitments. The Grazing Range provides yield on ALPACA holdings without adding LP or leverage risk.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f6" id="b6">
+        <h3>What is AUSD and how do I mint it?</h3><span class="faq-plus">+</span>
+      </button>
+      <div id="f6" class="faq-content" role="region" aria-labelledby="b6">
+        <p>AUSD is Alpaca Finance's overcollateralised stablecoin pegged to USD. Mint it by depositing ibTokens (ibBNB, ibBUSD, etc.) as collateral in the AUSD facility — you can mint AUSD up to approximately 80% of your collateral value. Your ibTokens continue earning lending interest while acting as collateral. Repay AUSD to unlock and redeem your collateral. AUSD is useful for accessing dollar liquidity without withdrawing your yield-earning lending position — enabling more capital-efficient DeFi strategies.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f7" id="b7">
+        <h3>What leverage should a new Alpaca Finance user start with?</h3><span class="faq-plus">+</span>
+      </button>
+      <div id="f7" class="faq-content" role="region" aria-labelledby="b7">
+        <p>Start at 2× leverage for your first position. At 2×, your starting debt ratio is ~50% and you have approximately 33 percentage points of buffer before liquidation — enough to survive significant price moves while you learn how debt ratio responds to price changes. Use the market-neutral strategy (borrow the stablecoin side) to minimise directional risk. Monitor daily for at least two weeks before considering higher leverage. Most experienced Alpaca users stay at 2–3× for sustainable farming; 4× and above is for experienced participants who actively manage positions.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f8" id="b8">
+        <h3>Is Alpaca Finance safe? Has it been hacked?</h3><span class="faq-plus">+</span>
+      </button>
+      <div id="f8" class="faq-content" role="region" aria-labelledby="b8">
+        <p>Alpaca Finance has operated continuously since February 2021 without a major smart-contract exploit — a significant track record in DeFi. The contracts have been audited by multiple firms. However, "no hack to date" is not a guarantee of future security — no DeFi protocol is risk-free. The primary risks for Alpaca users are not the smart contracts but leveraged position management (liquidation from price movement) and the ALPACA token price (which affects reward APY). Always verify the official app URL, use only bookmarked links, and maintain a BNB gas buffer.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-button" aria-expanded="false" aria-controls="f9" id="b9">
+        <h3>What happens to my leveraged position if Alpaca Finance shuts down?</h3><span class="faq-plus">+</span>
+      </button>
+      <div id="f9" class="faq-content" role="region" aria-labelledby="b9">
+        <p>Alpaca Finance's smart contracts are deployed on-chain on BNB Chain and operate autonomously — they don't require Alpaca's team or frontend to function. If Alpaca's website goes down, positions continue running and can be managed by interacting directly with the smart contracts via BscScan's write contract interface using the verified ABI. Lending vault deposits and farming positions are on-chain — your ibTokens remain valid and redeemable from the vault contract directly. Emergency withdrawal procedures are documented in Alpaca's official GitHub and documentation.</p>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer class="container" role="contentinfo" style="padding:2.5rem 0; border-top:1px solid var(--line); margin-top:2rem">
+  <p style="color:var(--dim); font-size:.93rem">© 2026 Alpaca Finance Guide. Educational content with a security-first operational focus. Not financial advice. Leveraged yield farming carries significant risk of total loss.</p>
+</footer>
+
+<script>
+  document.querySelectorAll('.faq-button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      document.querySelectorAll('.faq-button').forEach(b => {
+        b.setAttribute('aria-expanded', 'false');
+        const c = document.getElementById(b.getAttribute('aria-controls'));
+        c.classList.remove('open'); c.style.maxHeight = '0';
+      });
+      if (!isOpen) {
+        btn.setAttribute('aria-expanded', 'true');
+        const content = document.getElementById(btn.getAttribute('aria-controls'));
+        content.classList.add('open');
+        content.style.maxHeight = content.scrollHeight + 'px';
+      }
+    });
+  });
+</script>
+</body>
+</html>
